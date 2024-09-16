@@ -6,9 +6,20 @@
 
 const Qdevice = require('qdevice');
 const dbus = require('dbus-native');
+import { exec } from 'child_process'; 
 
 const SERVICE_NAME="io.freya.Core";
 const SIGNAL_NAME="updateActuator";
+
+const GPIO_LIGHTS="21";       // Digital out 1
+const GPIO_HEATER="20";       // Digital out 2
+const GPIO_RAIN="16";         // Digital out 3
+
+/* GPIO controls for the Sense'n'Drive Cartridge digital outputs */
+function setDigitalOutput( digitalOutput:string, state:string ){
+    const digitalState = state==='on'?'dh':'dl';
+    exec("pinctrl set "+digitalOutput+" op "+digitalState);
+}
 
 /* System DBus client */
 const systemBus = dbus.systemBus();
@@ -74,11 +85,11 @@ function setActuator( data:string ){
             const actuatorData = JSON.parse(data);
 
             switch(actuatorData.actuator){
-                case 'lights':  powerSwitch.send('CH1', actuatorData.value);
+                case 'lights':  setDigitalOutput( GPIO_LIGHTS, actuatorData.value );
                                 break;
-                case 'rain':    powerSwitch.send('CH2', actuatorData.value);
+                case 'rain':    setDigitalOutput( GPIO_RAIN, actuatorData.value );
                                 break;
-                case 'heater':  powerSwitch.send('CH3', actuatorData.value);
+                case 'heater':  setDigitalOutput( GPIO_HEATER, actuatorData.value );
                                 break;
                 default: break;
             }
