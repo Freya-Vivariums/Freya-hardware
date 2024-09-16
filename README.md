@@ -4,6 +4,10 @@
 
 The **Edgeberry-based Freya Vivarium Control System hardware** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge).
 
+
+<br clear="right"/>
+
+
 ## Installation
 The Freya Core installer will prompt you to select the hardware interface, so manual installation is not required. Should you prefer to install this component manually, follow these steps:
 ```
