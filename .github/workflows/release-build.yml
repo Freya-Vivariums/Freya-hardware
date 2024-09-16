@@ -29,7 +29,7 @@ jobs:
             mkdir tempdir;                         \
             mv ./package.json ./tempdir/;          \
             mv ./build ./tempdir/;                 \
-            mv ./io.freya.HardwareInterfaceUSB.service ./tempdir/; \
+            mv ./io.freya.HardwareInterfaceEdgeberry.service ./tempdir/; \
             mv ./uninstall.sh ./tempdir;
 
       - name: Create tarball
