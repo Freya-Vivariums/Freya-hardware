@@ -151,7 +151,7 @@ rm -rf repo.tar.gz
 
 # Install the Freya HardwareInterfaceUSB systemd service
 echo -e -n '\e[mInstalling systemd service \e[m'
-mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterfaceUSB.service /etc/systemd/system/
+mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterfaceEdgeberry.service /etc/systemd/system/
 systemctl daemon-reload
 if [ $? -eq 0 ]; then
     echo -e "\e[0;32m[Success]\e[0m"
@@ -160,7 +160,7 @@ else
 fi
 # Enable the Freya HardwareInterfaceUSB service to run on boot
 echo -e -n '\e[mEnabling service to run on boot \e[m'
-systemctl enable io.freya.HardwareInterfaceUSB
+systemctl enable io.freya.HardwareInterfaceEdgeberry
 if [ $? -eq 0 ]; then
     echo -e "\e[m[Success]\e[0m"
 else
