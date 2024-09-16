@@ -71,8 +71,7 @@ function monitorService() {
 monitorService();
 
 /* Q-com based hardware devices */
-const powerSwitch = new Qdevice("FreyaPowerswitch_1");		// Freya's Powerswitch Module, on address 1
-const sensor = new Qdevice("freyaSensor_1");		        // Freya's Sensor Module, on address 1
+const sensor = new Qdevice("FreyaSensor_1");		        // Freya's Sensor Module, on address 1
 
 // When data is received from the physical sensor,
 // update the data to the Freya Core
