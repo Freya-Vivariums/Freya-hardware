@@ -1,6 +1,6 @@
 ![Edgeberry banner](https://raw.githubusercontent.com/Freya-Vivariums/.github/main/documentation/Freya_banner.png)
 
-<img src="documentation/legacy_hardware.png" align="right" width="40%"/>
+<img src="documentation/Edgeberry_hardware.png" align="right" width="40%"/>
 
 The **Edgeberry-based Freya Vivarium Control System hardware** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge).
 
