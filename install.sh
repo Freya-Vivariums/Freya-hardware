@@ -168,8 +168,8 @@ else
 fi
 
 # Start the service
-echo -e -n '\e[mStarting the Freya HardwareInterfaceUSB service \e[m'
-systemctl start io.freya.HardwareInterfaceUSB
+echo -e -n '\e[mStarting the Freya HardwareInterfaceEdgeberry service \e[m'
+systemctl start io.freya.HardwareInterfaceEdgeberry
 if [ $? -eq 0 ]; then
     echo -e "\e[m[Success]\e[0m"
 else

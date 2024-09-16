@@ -18,7 +18,12 @@ const GPIO_RAIN="16";         // Digital out 3
 /* GPIO controls for the Sense'n'Drive Cartridge digital outputs */
 function setDigitalOutput( digitalOutput:string, state:string ){
     const digitalState = state==='on'?'dh':'dl';
-    exec("pinctrl set "+digitalOutput+" op "+digitalState);
+    try{
+        exec("pinctrl set "+digitalOutput+" op "+digitalState);
+    }
+    catch(e){
+        console.log("Failed to set Digital Output: "+e);
+    }
 }
 
 /* System DBus client */
