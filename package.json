@@ -1,0 +1,33 @@
+{
+  "name": "freya-hardware-edgeberry",
+  "version": "0.0.0",
+  "description": "Edgeberry-based hardware driver for Freya Vivarium Control System",
+  "author": "Sanne 'SpuQ' Santens",
+  "license": "GPL-3.0-only",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && webpack --config webpack.config.js && rm -rf build/bundle.js jsbuild/",
+    "deploy": "bash ./deploy.sh",
+    "dev": "nodemon --watch src src/index.ts",
+    "start": "node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpuQ/Freya-hardware-Edgeberry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SpuQ/Freya-hardware-Edgeberry/issues"
+  },
+  "homepage": "https://github.com/SpuQ/Freya-hardware-Edgeberry#readme",
+  "dependencies": {
+    "dbus-native": "^0.4.0",
+    "qdevice": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

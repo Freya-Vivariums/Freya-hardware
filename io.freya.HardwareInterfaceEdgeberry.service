@@ -1,0 +1,13 @@
+[Unit]
+Description=Freya Edgeberry based Hardware Interface service
+Documentation=https://github.com/Freya-Vivariums
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/Freya/HardwareInterfaceEdgeberry/
+Type=simple
+ExecStart=/usr/bin/node /opt/Freya/HardwareInterfaceEdgeberry/build/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
