@@ -1,7 +1,7 @@
 [Unit]
 Description=Freya Edgeberry based Hardware Interface service
 Documentation=https://github.com/Freya-Vivariums
-After=network.target
+After=io.freya.Core.service
 
 [Service]
 WorkingDirectory=/opt/Freya/HardwareInterfaceEdgeberry/
