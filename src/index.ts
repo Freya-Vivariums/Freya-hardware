@@ -1,12 +1,30 @@
 /*
- *  Freya Legacy Hardware
+ *  Freya hardware
+ *  The hardware-dependent component of the Freya Vivarium Control System, designed
+ *  for use with the Edgeberry hardware (Base Board + Sense'n'Drive hardware cartridge)
+ *  and the BME280 (barometric pressure, relative humidity, temperature) and BH1750 (light intensity)
+ *  I2C sensors.
  *
  *  by Sanne 'SpuQ' Santens
  */
-
-const Qdevice = require('qdevice');
 const dbus = require('dbus-native');
+const BH1750 = require('bh1750-sensor');
+const BME280 = require('bme280-sensor');
 import { exec } from 'child_process'; 
+
+
+// BH1750 setup
+const bh1750 = new BH1750({
+    address: 0x23,    // BH1750 I2C address
+    mode: BH1750.CONTINUOUS_HIGH_RES_MODE, // Correct mode constant
+    device: '/dev/i2c-1'
+});
+
+// BME280 setup
+const bme280 = new BME280({
+    i2cBusNo: 1,      // I2C bus number
+    i2cAddress: 0x77  // BME280 I2C address (updated to 0x77)
+});
 
 const SERVICE_NAME="io.freya.Core";
 const SIGNAL_NAME="updateActuator";
@@ -70,15 +88,56 @@ function monitorService() {
 
 monitorService();
 
-/* Q-com based hardware devices */
-const sensor = new Qdevice("FreyaSensor_1");		        // Freya's Sensor Module, on address 1
+/*
+ *  Sensors
+ */
 
-// When data is received from the physical sensor,
-// update the data to the Freya Core
-sensor.on('data', function( data:any ){
-    console.log(data);
-    if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:data.signal, value:parseFloat(data.argument)}))
-});
+// Initialize the I2C sensors
+async function initializeSensors() {
+    try {
+        await bh1750.init();
+        console.log('BH1750 initialized');
+
+        await bme280.init();
+        console.log('BME280 initialized');
+    } catch (err) {
+        console.error('Failed to initialize sensors:', err);
+        process.exit(1);
+    }
+}
+
+initializeSensors();
+
+// Read the sensor values continuously
+setInterval(async()=>{
+    // Read the BH1750 data
+    try {
+        const lux = await bh1750.readData();
+        console.log(`Light Intensity: ${lux.toFixed(1)} Lux`);
+        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'lighting', value:lux.toFixed(1)}));
+
+    }catch(err){
+        console.error('Error reading BH1750 sensor:', err);
+    }
+    // Read BME280 data
+    try{
+        const data = await bme280.readSensorData();
+        // Extract data
+        const temperature = data.temperature_C;
+        const pressure = data.pressure_hPa;
+        const humidity = data.humidity;
+
+        console.log("Temperature"+ temperature.toFixed(1) +" °C");
+        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'temperature', value:temperature.toFixed(1)}));
+        console.log("Pressure: "+ pressure.toFixed(1) +" hPa");
+        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'pressure', value:pressure.toFixed(1)}));
+        console.log("Humidity: "+ humidity.toFixed(1) +" %");
+        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'humidity', value:humidity.toFixed(1)}));
+    } catch (err) {
+        console.error('Error reading BME280 sensor:', err);
+    }
+}, 2*1000);
+
 
 // When actuator data is received from the
 // Freya Core, update the physical actuators
