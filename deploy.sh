@@ -57,13 +57,12 @@ sshpass -p ${PASSWORD} scp -r ./src \
                                 ./package.json \
                                 ./tsconfig.json \
                                 ./webpack.config.js \
-                                ./io.freya.HardwareInterfaceUSB.service \
+                                ./io.freya.HardwareInterfaceEdgeberry.service \
                                 ./uninstall.sh \
                                 ${USER}@${HOST}:temp/
 
 # Install the application on remote device
 sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no ${USER}@${HOST} << EOF 
-
     sudo su
     echo -e '\e[0;32mCreating project directory... \e[m'
     mkdir -p $APPDIR
@@ -83,18 +82,18 @@ sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no ${USER}@${HOST} << EOF
     cd $APPDIR/
     npm install --include=dev --verbose
 
-    # Install the Freya HardwareInterface for USB modules systemd service
+    # Install the Freya HardwareInterface for Edgeberry modules systemd service
     echo -e -n '\e[mInstalling systemd service \e[m'
-    mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterfaceUSB.service /etc/systemd/system/
+    mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterfaceEdgeberry.service /etc/systemd/system/
     systemctl daemon-reload
     if [ $? -eq 0 ]; then
         echo -e "\e[0;32m[Success]\e[0m"
     else
         echo -e "\e[0;33m[Failed]\e[0m";
     fi
-    # Enable the Freya Hardware Interface for USB service to run on boot
+    # Enable the Freya Hardware Interface for Edgeberry service to run on boot
     echo -e -n '\e[mEnabling service to run on boot \e[m'
-    systemctl enable io.freya.HardwareInterfaceUSB
+    systemctl enable io.freya.HardwareInterfaceEdgeberry
     if [ $? -eq 0 ]; then
         echo -e "\e[m[Success]\e[0m"
     else
