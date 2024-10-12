@@ -98,12 +98,15 @@ async function initializeSensors() {
     try {
         await bh1750.init();
         console.log('BH1750 initialized');
+    } catch (err) {
+        console.error('Failed to initialize BH1750:', err);
+    }
 
+    try{
         await bme280.init();
         console.log('BME280 initialized');
     } catch (err) {
-        console.error('Failed to initialize sensors:', err);
-        process.exit(1);
+        console.error('Failed to initialize BME280:', err);
     }
 }
 
