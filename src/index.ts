@@ -32,6 +32,7 @@ const SIGNAL_NAME="updateActuator";
 const GPIO_LIGHTS="21";       // Digital out 1
 const GPIO_HEATER="20";       // Digital out 2
 const GPIO_RAIN="16";         // Digital out 3
+const GPIO_TLIGHTS="18";      // Digital out 6 - Transitional lights
 
 /* GPIO controls for the Sense'n'Drive Cartridge digital outputs */
 function setDigitalOutput( digitalOutput:string, state:string ){
@@ -149,6 +150,8 @@ function setActuator( data:string ){
 
             switch(actuatorData.actuator){
                 case 'lights':  setDigitalOutput( GPIO_LIGHTS, actuatorData.value );
+                                break;
+                case 'translights':  setDigitalOutput( GPIO_TLIGHTS, actuatorData.value );
                                 break;
                 case 'rain':    setDigitalOutput( GPIO_RAIN, actuatorData.value );
                                 break;
