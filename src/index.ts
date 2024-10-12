@@ -115,7 +115,10 @@ setInterval(async()=>{
     try {
         const lux = await bh1750.readData();
         console.log(`Light Intensity: ${lux.toFixed(1)} Lux`);
-        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'lighting', value:lux.toFixed(1)}));
+        // Pass relative light intensity to Freya Core. With my current lighting setup,
+        // 5500 Lux is the maximum, that's why I devide by 55 to get a percentage, but this should
+        // get a better implementation (e.g. with a calibration function)
+        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'lighting', value:(lux/55).toFixed(1)}));
 
     }catch(err){
         console.error('Error reading BH1750 sensor:', err);
