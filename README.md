@@ -17,6 +17,35 @@ chmod +x ./install.sh;
 sudo ./install.sh;
 ```
 
+The software is installed as a `systemd` service, which is automatically started.
+```
+# systemctl status io.freya.HardwareInterfaceEdgeberry.service
+```
+
+To view the log files of the service, run:
+```
+# journalctl -u io.freya.HardwareInterfaceEdgeberry.service -f
+```
+
+### Actuators
+The actuators are controlled by the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge)s digital outputs.
+
+| Digital out | RPi GPIO | Actuator           |
+|-------------|----------|--------------------|
+| D1          | GPIO21   | Main lighting      |
+| D2          | GPIO20   | Heater element     |
+| D3          | GPIO16   | Misting pump       |
+| D4          | GPIO13   | NC                 |
+| D5          | GPIO12   | NC                 |
+| D6          | GPIO18   | Secondary lighting |
+
+### Sensors
+Detect sensors on the I2C bus
+```
+i2cdetect -y 1
+```
+
+
 ## License & Collaboration
 **Copyright© 2024 Sanne 'SpuQ' Santens**. This project is released under the [**GNU GPLv3**](https://www.gnu.org/licenses/gpl-3.0.en.html) license. However, [trademark rules](https://github.com/Freya-Vivariums/.github/blob/main/brand/Freya_Trademark_Rules_and_Guidelines.md) apply to the Freya™ brand.
 

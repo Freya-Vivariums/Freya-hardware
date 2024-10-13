@@ -23,7 +23,7 @@ const bh1750 = new BH1750({
 // BME280 setup
 const bme280 = new BME280({
     i2cBusNo: 1,      // I2C bus number
-    i2cAddress: 0x77  // BME280 I2C address (updated to 0x77)
+    i2cAddress: 0x76  // BME280 I2C address (updated to 0x77)
 });
 
 const SERVICE_NAME="io.freya.Core";
