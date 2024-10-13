@@ -34,6 +34,8 @@ const GPIO_HEATER="20";       // Digital out 2
 const GPIO_RAIN="16";         // Digital out 3
 const GPIO_TLIGHTS="18";      // Digital out 6 - Transitional lights
 
+const SAMPLE_INTERVAL=10*1000 // Sensor sample interval
+
 /* GPIO controls for the Sense'n'Drive Cartridge digital outputs */
 function setDigitalOutput( digitalOutput:string, state:string ){
     const digitalState = state==='on'?'dh':'dl';
@@ -143,7 +145,7 @@ setInterval(async()=>{
     } catch (err) {
         console.error('Error reading BME280 sensor:', err);
     }
-}, 2*1000);
+}, SAMPLE_INTERVAL );
 
 
 // When actuator data is received from the
