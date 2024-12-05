@@ -2,39 +2,46 @@
  *  Freya hardware
  *  The hardware-dependent component of the Freya Vivarium Control System, designed
  *  for use with the Edgeberry hardware (Base Board + Sense'n'Drive hardware cartridge)
- *  and the BME280 (barometric pressure, relative humidity, temperature) and BH1750 (light intensity)
- *  I2C sensors.
+ *  and the Freya Sensor (v1).
  *
  *  by Sanne 'SpuQ' Santens
  */
 const dbus = require('dbus-native');
-const BH1750 = require('bh1750-sensor');
-const BME280 = require('bme280-sensor');
 import { exec } from 'child_process'; 
+import i2c from 'i2c-bus';
+import BME680 from './bme680';
+import AS7331 from './as7331';
+import VEML6030 from './veml6030';
 
-
-// BH1750 setup
-const bh1750 = new BH1750({
-    address: 0x23,    // BH1750 I2C address
-    mode: BH1750.CONTINUOUS_HIGH_RES_MODE, // Correct mode constant
-    device: '/dev/i2c-1'
-});
-
-// BME280 setup
-const bme280 = new BME280({
-    i2cBusNo: 1,      // I2C bus number
-    i2cAddress: 0x77  // BME280 I2C address (updated to 0x77)
-});
-
+// D-Bus service
 const SERVICE_NAME="io.freya.Core";
 const SIGNAL_NAME="updateActuator";
 
+// Edgeberry Digital outputs
 const GPIO_LIGHTS="21";       // Digital out 1
 const GPIO_HEATER="20";       // Digital out 2
 const GPIO_RAIN="16";         // Digital out 3
+const GPIO_VENTILATION="12"   // Digital out 5
 const GPIO_TLIGHTS="18";      // Digital out 6 - Transitional lights
 
 const SAMPLE_INTERVAL=10*1000 // Sensor sample interval
+
+// Open the I2C bus
+const i2c_bus = i2c.openSync(1);
+const bme680 = new BME680( 0x76, i2c_bus );
+const as7331 = new AS7331( 0x74, i2c_bus);
+const veml6030 = new VEML6030( 0x10, i2c_bus );
+
+setInterval(()=>{
+    bme680.readSensorData();
+    as7331.readSensorData();
+    veml6030.readSensorData();
+
+    // TODO: sensor data to Core
+    //if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'humidity', value:humidity.toFixed(1)}));
+}, SAMPLE_INTERVAL);
+
+
 
 /* GPIO controls for the Sense'n'Drive Cartridge digital outputs */
 function setDigitalOutput( digitalOutput:string, state:string ){
@@ -91,63 +98,6 @@ function monitorService() {
 
 monitorService();
 
-/*
- *  Sensors
- */
-
-// Initialize the I2C sensors
-async function initializeSensors() {
-    try {
-        await bh1750.init();
-        console.log('BH1750 initialized');
-    } catch (err) {
-        console.error('Failed to initialize BH1750:', err);
-    }
-
-    try{
-        await bme280.init();
-        console.log('BME280 initialized');
-    } catch (err) {
-        console.error('Failed to initialize BME280:', err);
-    }
-}
-
-initializeSensors();
-
-// Read the sensor values continuously
-setInterval(async()=>{
-    // Read the BH1750 data
-    try {
-        const lux = await bh1750.readData();
-        console.log(`Light Intensity: ${lux.toFixed(1)} Lux`);
-        // Pass relative light intensity to Freya Core. With my current lighting setup,
-        // 5500 Lux is the maximum, that's why I devide by 55 to get a percentage, but this should
-        // get a better implementation (e.g. with a calibration function)
-        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'lighting', value:(lux/55).toFixed(1)}));
-
-    }catch(err){
-        console.error('Error reading BH1750 sensor:', err);
-    }
-    // Read BME280 data
-    try{
-        const data = await bme280.readSensorData();
-        // Extract data
-        const temperature = data.temperature_C;
-        const pressure = data.pressure_hPa;
-        const humidity = data.humidity;
-
-        console.log("Temperature"+ temperature.toFixed(1) +" °C");
-        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'temperature', value:temperature.toFixed(1)}));
-        console.log("Pressure: "+ pressure.toFixed(1) +" hPa");
-        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'pressure', value:pressure.toFixed(1)}));
-        console.log("Humidity: "+ humidity.toFixed(1) +" %");
-        if(freyaCore) freyaCore.setMeasurement(JSON.stringify({variable:'humidity', value:humidity.toFixed(1)}));
-    } catch (err) {
-        console.error('Error reading BME280 sensor:', err);
-    }
-}, SAMPLE_INTERVAL );
-
-
 // When actuator data is received from the
 // Freya Core, update the physical actuators
 function setActuator( data:string ){
@@ -165,6 +115,8 @@ function setActuator( data:string ){
                                 break;
                 case 'heater':  setDigitalOutput( GPIO_HEATER, actuatorData.value );
                                 break;
+                case 'cooler':  setDigitalOutput( GPIO_VENTILATION, actuatorData.value );
+                                break;
                 default: break;
             }
         }
@@ -172,3 +124,5 @@ function setActuator( data:string ){
             console.error("Unable to parse actuator data!");
         }
 }
+
+

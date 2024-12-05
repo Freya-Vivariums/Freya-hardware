@@ -21,11 +21,11 @@
   },
   "homepage": "https://github.com/SpuQ/Freya-hardware-Edgeberry#readme",
   "dependencies": {
-    "bh1750-sensor": "^0.0.3",
-    "bme280-sensor": "^0.1.7",
-    "dbus-native": "^0.4.0"
+    "dbus-native": "^0.4.0",
+    "i2c-bus": "^5.2.3"
   },
   "devDependencies": {
+    "@types/i2c-bus": "^5.1.2",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "webpack-cli": "^5.1.4",
