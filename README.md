@@ -1,10 +1,8 @@
 ![Edgeberry banner](https://raw.githubusercontent.com/Freya-Vivariums/.github/main/documentation/Freya_banner.png)
 
-<img src="documentation/Edgeberry_hardware.png" align="right" width="40%"/>
+<img src="documentation/freya_hardware.jpg" align="right" width="40%"/>
 
-The **Edgeberry-based Freya Vivarium Control System hardware** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge).
-
-The sensors used are the BME280 for sensing the relative humidity (%), temperature (°C) and barometric pressure (hPa), and the BH1750 for sensing the light intensity (Lux), and are connected to the I2C port on the Edgeberry Sense'n'Drive Cartridge.
+The **Edgeberry-based Freya Vivarium Control System** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge) and the [Freya Sensor (Rev.1)](https://github.com/Freya-Vivariums/Sensor-Hardware).
 
 <br clear="right"/>
 
