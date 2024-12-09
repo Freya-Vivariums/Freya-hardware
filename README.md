@@ -1,8 +1,19 @@
 ![Edgeberry banner](https://raw.githubusercontent.com/Freya-Vivariums/.github/main/documentation/Freya_banner.png)
 
-<img src="documentation/freya_hardware.jpg" align="right" width="40%"/>
+<img src="documentation/Freya_hardware.jpg" align="right" width="40%"/>
 
-The **Edgeberry-based Freya Vivarium Control System** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge) and the [Freya Sensor (Rev.1)](https://github.com/Freya-Vivariums/Sensor-Hardware).
+The **Freya Vivarium Control System** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge) and the [Freya Sensor (Rev.1)](https://github.com/Freya-Vivariums/Sensor-Hardware).
+
+Through the sensor, environment variables from within the vivarium are measured:
+- Temperature
+- Humidity
+- Air pressure
+- (Air quality)
+- Daylight intensity
+- UVA/B/C
+
+The control system has 6 sourcing digital outputs for interfacing with several types of actuators.
+
 
 <br clear="right"/>
 
