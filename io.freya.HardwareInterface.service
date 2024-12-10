@@ -4,9 +4,9 @@ Documentation=https://github.com/Freya-Vivariums
 After=io.freya.Core.service
 
 [Service]
-WorkingDirectory=/opt/Freya/HardwareInterfaceEdgeberry/
+WorkingDirectory=/opt/Freya/HardwareInterface/
 Type=simple
-ExecStart=/usr/bin/node /opt/Freya/HardwareInterfaceEdgeberry/build/index.js
+ExecStart=/usr/bin/node /opt/Freya/HardwareInterface/build/index.js
 Restart=on-failure
 
 [Install]

@@ -8,7 +8,7 @@
 ##
 
 APPNAME=Freya
-APPCOMP=HardwareInterfaceEdgeberry
+APPCOMP=HardwareInterface
 APPDIR=/opt/${APPNAME}/${APPCOMP}
 
 

@@ -2,7 +2,7 @@
 
 <img src="documentation/Freya_hardware.jpg" align="right" width="40%"/>
 
-The **Freya Vivarium Control System** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge) and the [Freya Sensor (Rev.1)](https://github.com/Freya-Vivariums/Sensor-Hardware).
+The **Freya Vivarium Control System** consists of the [Edgeberry Base Board](https://github.com/Edgeberry/Edgeberry-hardware) with the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge) and the [Freya Sensor (Rev.1)](https://github.com/Freya-Vivariums/Sensor-hardware).
 
 Through the sensor, environment variables from within the vivarium are measured:
 - Temperature
@@ -21,19 +21,19 @@ The control system has 6 sourcing digital outputs for interfacing with several t
 ## Installation
 The Freya Core installer will prompt you to select the hardware interface, so manual installation is not required. Should you prefer to install this component manually, follow these steps:
 ```
-wget -O install.sh https://github.com/Freya-Vivariums/Freya-hardware-Edgeberry/releases/latest/download/install.sh;
+wget -O install.sh https://github.com/Freya-Vivariums/Freya-hardware/releases/latest/download/install.sh;
 chmod +x ./install.sh;
 sudo ./install.sh;
 ```
 
 The software is installed as a `systemd` service, which is automatically started.
 ```
-# systemctl status io.freya.HardwareInterfaceEdgeberry.service
+# systemctl status io.freya.HardwareInterface.service
 ```
 
 To view the log files of the service, run:
 ```
-# journalctl -u io.freya.HardwareInterfaceEdgeberry.service -f
+# journalctl -u io.freya.HardwareInterface.service -f
 ```
 
 ### Actuators

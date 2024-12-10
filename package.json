@@ -1,5 +1,5 @@
 {
-  "name": "freya-hardware-edgeberry",
+  "name": "freya-hardware",
   "version": "0.0.0",
   "description": "Edgeberry-based hardware driver for Freya Vivarium Control System",
   "author": "Sanne 'SpuQ' Santens",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SpuQ/Freya-hardware-Edgeberry.git"
+    "url": "git+https://github.com/SpuQ/Freya-hardware.git"
   },
   "bugs": {
-    "url": "https://github.com/SpuQ/Freya-hardware-Edgeberry/issues"
+    "url": "https://github.com/SpuQ/Freya-hardware/issues"
   },
-  "homepage": "https://github.com/SpuQ/Freya-hardware-Edgeberry#readme",
+  "homepage": "https://github.com/SpuQ/Freya-hardware#readme",
   "dependencies": {
     "dbus-native": "^0.4.0",
     "i2c-bus": "^5.2.3"
