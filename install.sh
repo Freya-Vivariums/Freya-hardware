@@ -9,8 +9,8 @@
 ##
 
 APPNAME=Freya
-APPCOMP=HardwareInterfaceEdgeberry
-REPONAME=Freya-hardware-Edgeberry
+APPCOMP=HardwareInterface
+REPONAME=Freya-hardware
 REPOOWNER=Freya-Vivariums
 APPDIR=/opt/${APPNAME}/${APPCOMP}
 
@@ -99,7 +99,7 @@ else
 fi
 # Get the asset download URL from the release info
 echo -n -e "\e[0mGetting the latest ${APPNAME} release download URL \e[0m"
-asset_url=$(echo "$latest_release" | jq -r '.assets[] | select(.name | test("Freya-hardware-Edgeberry-v[0-9]+\\.[0-9]+\\.[0-9]+\\.tar\\.gz")) | .url')
+asset_url=$(echo "$latest_release" | jq -r '.assets[] | select(.name | test("Freya-hardware-v[0-9]+\\.[0-9]+\\.[0-9]+\\.tar\\.gz")) | .url')
 # If we have an asset URL, download the tarball
 if [ -n "$asset_url" ]; then
     #echo -e "\e[0;32mURL:\e[0m ${asset_url}";
@@ -151,16 +151,16 @@ rm -rf repo.tar.gz
 
 # Install the Freya HardwareInterfaceUSB systemd service
 echo -e -n '\e[mInstalling systemd service \e[m'
-mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterfaceEdgeberry.service /etc/systemd/system/
+mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterface.service /etc/systemd/system/
 systemctl daemon-reload
 if [ $? -eq 0 ]; then
     echo -e "\e[0;32m[Success]\e[0m"
 else
     echo -e "\e[0;33m[Failed]\e[0m";
 fi
-# Enable the Freya HardwareInterfaceUSB service to run on boot
+# Enable the Freya HardwareInterface service to run on boot
 echo -e -n '\e[mEnabling service to run on boot \e[m'
-systemctl enable io.freya.HardwareInterfaceEdgeberry
+systemctl enable io.freya.HardwareInterface
 if [ $? -eq 0 ]; then
     echo -e "\e[m[Success]\e[0m"
 else
@@ -168,8 +168,8 @@ else
 fi
 
 # Start the service
-echo -e -n '\e[mStarting the Freya HardwareInterfaceEdgeberry service \e[m'
-systemctl start io.freya.HardwareInterfaceEdgeberry
+echo -e -n '\e[mStarting the Freya HardwareInterface service \e[m'
+systemctl start io.freya.HardwareInterface
 if [ $? -eq 0 ]; then
     echo -e "\e[m[Success]\e[0m"
 else

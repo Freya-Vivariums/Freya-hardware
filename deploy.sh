@@ -10,8 +10,8 @@
 DEFAULT_USER=spuq
 DEFAULT_HOST=192.168.1.103
 APPNAME=Freya
-APPCOMP=HardwareInterfaceEdgeberry
-SERVICENAME="io.freya.HardwareInterfaceEdgeberry"
+APPCOMP=HardwareInterface
+SERVICENAME="io.freya.HardwareInterface"
 APPDIR=/opt/${APPNAME}/${APPCOMP}
 
 # Let's start with an empty terminal
@@ -57,7 +57,7 @@ sshpass -p ${PASSWORD} scp -r ./src \
                                 ./package.json \
                                 ./tsconfig.json \
                                 ./webpack.config.js \
-                                ./io.freya.HardwareInterfaceEdgeberry.service \
+                                ./io.freya.HardwareInterface.service \
                                 ./uninstall.sh \
                                 ${USER}@${HOST}:temp/
 
@@ -82,9 +82,9 @@ sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no ${USER}@${HOST} << EOF
     cd $APPDIR/
     npm install --include=dev --verbose
 
-    # Install the Freya HardwareInterface for Edgeberry modules systemd service
+    # Install the Freya HardwareInterface systemd service
     echo -e -n '\e[mInstalling systemd service \e[m'
-    mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterfaceEdgeberry.service /etc/systemd/system/
+    mv -f /opt/${APPNAME}/${APPCOMP}/io.freya.HardwareInterface.service /etc/systemd/system/
     systemctl daemon-reload
     if [ $? -eq 0 ]; then
         echo -e "\e[0;32m[Success]\e[0m"
@@ -93,7 +93,7 @@ sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no ${USER}@${HOST} << EOF
     fi
     # Enable the Freya Hardware Interface for Edgeberry service to run on boot
     echo -e -n '\e[mEnabling service to run on boot \e[m'
-    systemctl enable io.freya.HardwareInterfaceEdgeberry
+    systemctl enable io.freya.HardwareInterface
     if [ $? -eq 0 ]; then
         echo -e "\e[m[Success]\e[0m"
     else
