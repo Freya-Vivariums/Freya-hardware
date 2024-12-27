@@ -1,4 +1,4 @@
-![Edgeberry banner](https://raw.githubusercontent.com/Freya-Vivariums/.github/main/documentation/Freya_banner.png)
+![Freya banner](https://github.com/Freya-Vivariums/.github/blob/main/brand/Freya_banner.png?raw=true)
 
 <img src="documentation/Freya_hardware.jpg" align="right" width="40%"/>
 
@@ -41,7 +41,7 @@ The actuators are controlled by the [Edgeberry Sense'n'Drive Cartridge](https://
 
 | Digital out | RPi GPIO | Actuator           |
 |-------------|----------|--------------------|
-| D1          | GPIO21   | Main lighting      |
+| D1          | GPIO21   | Main lighting + UV |
 | D2          | GPIO20   | Heater element     |
 | D3          | GPIO16   | Misting pump       |
 | D4          | GPIO13   | NC                 |
@@ -49,6 +49,8 @@ The actuators are controlled by the [Edgeberry Sense'n'Drive Cartridge](https://
 | D6          | GPIO18   | Secondary lighting |
 
 ### Sensors
+This software is designed to work with the [Freya Sensor](https://github.com/Freya-Vivariums/Sensor-hardware). This sensor has the `BME680` (0x76), `VEML6030` (0x10) and `AS7331` (0x74) sensors, connected to the I2C bus.
+
 Detect sensors on the I2C bus
 ```
 i2cdetect -y 1
