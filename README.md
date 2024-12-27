@@ -45,7 +45,7 @@ The actuators are controlled by the [Edgeberry Sense'n'Drive Cartridge](https://
 | D2          | GPIO20   | Heater element     |
 | D3          | GPIO16   | Misting pump       |
 | D4          | GPIO13   | NC                 |
-| D5          | GPIO12   | NC                 |
+| D5          | GPIO12   | Ventilation        |
 | D6          | GPIO18   | Secondary lighting |
 
 ### Sensors
