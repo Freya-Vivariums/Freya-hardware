@@ -37,7 +37,7 @@ To view the log files of the service, run:
 ```
 
 ### Actuators
-The actuators are controlled by the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge)s digital outputs.
+The actuators are controlled by the [Edgeberry Sense'n'Drive Cartridge](https://github.com/Edgeberry/Edgeberry_SenseAndDrive_Cartridge)'s digital outputs.
 
 | Digital out | RPi GPIO | Actuator           |
 |-------------|----------|--------------------|
